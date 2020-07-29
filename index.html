@@ -1,44 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-      crossorigin="anonymous"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <title>Work Day Scheduler</title>
-  </head>
 
-  <body>
-    <header class="jumbotron">
-      <h1 class="display-3">Work Day Scheduler</h1>
-      <p class="lead">A simple calendar app for scheduling your work day</p>
-      <p id="currentDay" class="lead"></p>
-    </header>
-    <div class="container">
-      <!-- Timeblocks go here -->
-      <!--Make forms for time slots-->
-      <!---->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>Work Day Scheduler</title>
+</head>
+
+<body>
+  <header class="jumbotron">
+    <h1 class="display-3">Work Day Scheduler</h1>
+    <p class="lead">A simple calendar app for scheduling your work day</p>
+    <p id="currentDay" class="lead"></p>
+  </header>
+  <div class="container">
+    <!-- Timeblocks go here -->
+    <div class="time-block">
+      <div class="row time-row">
+        <h2 id="9">9AM</h2>
+        <input type="text">
+
+        <button class="saveBtn">
+          <i class="fas fa-save"></i>
+
+        </button>
+      </div>
+      <div class="row time-row">
+        <h2 id="10">10AM</h2>
+        <input type="text">
+
+        <button class="saveBtn">
+          <i class="fas fa-save"></i>
+
+        </button>
+      </div>
+      <div class="row time-row">
+        <h2 id="11">11AM</h2>
+        <input type="text">
+
+        <button class="saveBtn">
+          <i class="fas fa-save"></i>
+
+        </button>
+      </div>
+      <div class="row time-row">
+        <h2 id="12">12PM</h2>
+        <input type="text">
+
+        <button class="saveBtn">
+          <i class="fas fa-save"></i>
+
+        </button>
+      </div>
+      <!--make sure ID is military hour-->
+      <div class="row time-row">
+        <h2 id="13">1PM</h2>
+        <input type="text">
+
+        <button class="saveBtn">
+          <i class="fas fa-save"></i>
+
+        </button>
+      </div>
+      <div class="row time-row">
+        <h2 id="14">2PM</h2>
+        <input type="text">
+
+        <button class="saveBtn">
+          <i class="fas fa-save"></i>
+
+        </button>
+      </div>
+      <div class="row time-row">
+        <h2 id="15">3PM</h2>
+        <input type="text">
+
+        <button class="saveBtn">
+          <i class="fas fa-save"></i>
+
+        </button>
+      </div>
+      <div class="row time-row">
+        <h2 id="16">4PM</h2>
+        <input type="text">
+
+        <button class="saveBtn">
+          <i class="fas fa-save"></i>
+
+        </button>
+      </div>
+      <div class="row time-row">
+        <h2 id="17">5PM</h2>
+        <input type="text">
+
+        <button class="saveBtn">
+          <i class="fas fa-save"></i>
+
+        </button>
+      </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="moment.min.js"></script>
-    <script>
-      
-    </script>
-  </body>
+  </div>
+  </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="moment.min.js"></script>
+  <script>
+    //looping time
+    $('.time-row').each(function (i, el) {
+      console.log(el)
+      var time = +$(el).find('h2').attr('id')
+      console.log(time, moment().hour())
+      //past
+      if (time < moment().hour()) {
+        //add past class
+        $(el).find('input').addClass("past");
+      }
+      //current
+      else if(time === moment().hour()){
+        $(el).find('input').addClass("present");
+      }
+      //future
+      else {
+        $(el).find('input').addClass("future");
+      }
+    })
+
+    //store events in local storage
+    //const (variable) = document.getElementById("variable")
+    var data = [{9: 'go to store' }, {10: 'go to concert' }]; // Updated this to create an initial array
+    localStorage.setItem('data', JSON.stringify(data));
+    var newData = JSON.parse(localStorage.getItem('data'));
+    // console.log("newData", newData)
+    $('.time-row').each(function(i, el){
+      var h2 = $(el).find('h2'); // sets the elements h2 DOM node on each iteration of the .each loop
+      var lsObject = newData[i]; // Gets the object from the parsed array of objects from storage
+      if (lsObject) { // ensures the object exists before trying to set the data into the input
+        var lsValue = Object.values(lsObject)[0]; // gets the value of the only value inside of that objects iteration
+        $(el).find('input').val(lsValue) // sets the value of the input with that object value.
+      }
+    });
+
+    //onclick button to save storage
+    //const (var2) = (var1).value;
+        // here we need an on 'click' event listener with a callback that references the $(this) keyword.  
+        $('.saveBtn').on('click', function() {
+          
+        });
+    // $(this) will target which button you clicked and open up the ability to find it's "siblings" input value.
+    // you will also be able to get your "siblings" h2 id which can be used to create your localStorage object. {h2id: input value}
+    
+
+    }
+
+  </script>
+</body>
+
 </html>
